@@ -23,6 +23,20 @@ import sys
 #movement speed
 speed = 10
 
+#projectile size
+(projectileSizeX,projectileSizeY) = (10,30)
+
+#projectile position
+(projectileX,projectileY) = (500,250)
+
+#projectile speed
+projectileSpeed = 2
+
+#projectile state
+projectileAlive = False
+
+
+
 init()
 display.set_caption("Space Invaders")
 window = display.set_mode((width,height))
@@ -35,24 +49,35 @@ while True:
             sys.exit()
         elif events.type == KEYDOWN:
             if events.key == K_LEFT:
-                playerX -= 1
-                print("LEFT")
-            elif events.key == K_RIGHT:
-                playerX += 1
-                print("RIGHT")
+                if playerX > L:
+                    playerX -= 1
+                    print("LEFT")
+            if events.key == K_RIGHT:
+                if playerX + playerSizeX <= R:
+                    playerX += 1
+                    print("RIGHT")
+            if events.key == K_UP:
+                if not(projectileAlive):
+                    print("FIRE")
+                    (projectileX,projectileY) = (playerX+(playerSizeX//2)-(projectileSizeX//2),playerY)
+                    projectileAlive = True
                 
     window.fill(Color("black"))
-    #draw.line(window,Color("white"),UL,UR)
-    #draw.line(window,Color("white"),UL,LL)
-    #draw.line(window,Color("white"),LL,LR)
-    #draw.line(window,Color("white"),UR,LR)
-    
-    
-
-        
+    draw.line(window,Color("white"),UL,UR)
+    draw.line(window,Color("white"),UL,LL)
+    draw.line(window,Color("white"),LL,LR)
+    draw.line(window,Color("white"),UR,LR)
     
     draw.rect(window,Color("white"),(playerX,playerY,playerSizeX,playerSizeY))
     
+    
+
+    if projectileAlive:
+        projectileY -= projectileSpeed
+        draw.rect(window,Color("green"),(projectileX,projectileY,projectileSizeX,projectileSizeY))
+
+    if projectileY <= U-projectileSizeY:
+        projectileAlive = False
     
     display.update()
 

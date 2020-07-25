@@ -24,7 +24,7 @@ speed = 10
 (projectileSizeX,projectileSizeY) = (5,15)
 
 #projectile position
-(projectileX,projectileY) = (0,0)
+(projectileX,projectileY) = (width,height)
 
 #projectile speed
 projectileSpeed = 1
@@ -39,4 +39,21 @@ projectileAlive = False
 spaceing = 10
 
 #screen offset for aliens
-(offserX,offsetY) = (20,20)
+(offsetX,offsetY) = (20,20)
+
+#flock edges
+rightEdge = 0
+leftEdge = 0
+
+#number of dead aliens
+aliensDead = 0
+hadKill = False
+
+#alien matrix
+aliensAlive = [[True]*10 for _ in range(4)]
+
+#direction of aliens
+aliensDirection = 1
+
+#speed of aliens(less is more)
+aliensSpeed = 1

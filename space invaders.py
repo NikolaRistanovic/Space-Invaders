@@ -38,16 +38,25 @@ while True:
     pg.draw.line(window,pg.Color("white"),var.LL,var.LR)
     pg.draw.line(window,pg.Color("white"),var.UR,var.LR)
     
-    pg.draw.rect(window,pg.Color("white"),(var.playerX,var.playerY,var.playerSizeX,var.playerSizeY))
-    
-    
+    pg.draw.rect(window,pg.Color(var.playerColor[var.playerState]),(var.playerX,var.playerY,var.playerSizeX,var.playerSizeY))
 
     if var.projectileAlive:
         var.projectileY -= var.projectileSpeed
-        pg.draw.rect(window,pg.Color("green"),(var.projectileX,var.projectileY,var.projectileSizeX,var.projectileSizeY))
+        pg.draw.rect(window,pg.Color(var.playerColor[var.playerState]),(var.projectileX,var.projectileY,var.projectileSizeX,var.projectileSizeY))
 
     if var.projectileY <= var.U:
         var.projectileAlive = False
+
+    
+    if var.APs[0][1] > var.D - var.projectileSizeY:
+        var.APisAlive[0] = False
+
+    if var.APisAlive[0]:
+        (x,y) = var.APs[0]
+        y += var.projectileSpeed
+        var.APs[0] = (x,y)
+        pg.draw.rect(window,pg.Color("green"),(x,y,var.projectileSizeX,var.projectileSizeY))
+
     
     if var.offsetX > var.R - var.L - (10 * var.alienSizeX + 9 * var.spaceing) - 405 - var.rightEdge:
         var.aliensDirection = 0
@@ -72,6 +81,9 @@ while True:
         textsurface = textFont.render(str(var.aliensDead), True, pg.Color("white"))
         var.hadKill = False
     
+    aliens.shoot()
+    aliens.hitDetection(0)
+
     window.blit(textsurface,(0,0))
 
     pg.display.update()

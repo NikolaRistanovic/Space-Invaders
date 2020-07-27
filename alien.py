@@ -1,4 +1,5 @@
 import variables
+import random
 class alienClass:
     
     
@@ -30,8 +31,15 @@ class alienClass:
         alienClass.flockLimit(self)
         variables.hadKill = True
 
-    def shoot(self,x,y):
-        pass
+    def shoot(self):
+        if variables.aliensDead < 40 and not(variables.APisAlive[0]):
+            while 1:
+                (x,y) = random.randint(0,3),random.randint(0,9)
+                if alienClass.isAlive(self,x,y):
+                    variables.APisAlive[0] = True
+                    (posX,posY,AlienSizeX,alienSizeY) = alienClass.Render(self,variables.offsetX,variables.offsetY,y,x)
+                    variables.APs[0] = (posX+AlienSizeX//2-variables.projectileSizeX//2,posY-variables.projectileSizeY)
+                    break
 
     def Render(self,Xoffset,Yoffset,x,y):
          posX = Xoffset + variables.L + (x*(variables.spaceing + variables.alienSizeX))
@@ -45,4 +53,10 @@ class alienClass:
             if posAY + sizeAY >= posPY and posAY <= posPY - sizePY:
                 alienClass.kill(self,x,y)
                 variables.projectileAlive = False
+
+    def hitDetection(self,iAP):
+        if variables.APs[iAP][1] > variables.D - variables.playerSizeY - variables.projectileSizeY:
+            if variables.playerX + variables.playerSizeX >= variables.APs[iAP][0] and variables.playerX <= variables.APs[iAP][0] - variables.projectileSizeX:
+                variables.APisAlive[iAP] = False
+                variables.playerState = 1
         

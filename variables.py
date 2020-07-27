@@ -17,6 +17,12 @@
 #player position
 (playerX,playerY) = (L,D-playerSizeY)
 
+#player color
+playerColor = ["cyan","darkred"]
+
+#player state
+playerState = 0
+
 #movement speed
 speed = 10
 
@@ -55,5 +61,10 @@ aliensAlive = [[True]*10 for _ in range(4)]
 #direction of aliens
 aliensDirection = 1
 
-#speed of aliens(less is more)
+#speed of aliens
 aliensSpeed = 1
+
+#list of Alien projectiles
+APsAlowed = 1
+APs = [(0,0)] * 5
+APisAlive = [False] * 5

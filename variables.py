@@ -1,6 +1,9 @@
 #screen dimensions
 (width,height) = (960,540)
 
+#timer counter
+counter = 3
+
 #sides
 (L,R,U,D) = (width//20,width-width//20,height//20,height-height//20)
 
@@ -38,6 +41,14 @@ projectileSpeed = 1
 #projectile state
 projectileAlive = False
 
+#walls
+wallsColor = ['black','darkred','red','white']
+wallsState = [[[3,3,3] for _ in range(3)] for _ in range(6)]
+wallSize = 30
+wallHeight = height - 180
+wallNum = 6
+
+
 #alien size
 (alienSizeX,alienSizeY) = (35,25)
 
@@ -67,4 +78,5 @@ aliensSpeed = 1
 #list of Alien projectiles
 APsAlowed = 1
 APs = [(0,0)] * 5
+aliensShooting = (0,0) * 5
 APisAlive = [False] * 5

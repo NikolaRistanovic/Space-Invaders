@@ -57,8 +57,8 @@ class alienClass:
     def colisionDetction(self,x,y):
         (posAX,posAY,sizeAX,sizeAY) = alienClass.Render(self,variables.offsetX,variables.offsetY,y,x)
         (posPX,posPY,sizePX,sizePY) = (variables.projectileX,variables.projectileY,variables.projectileSizeX,variables.projectileSizeY)
-        if posAY + sizeAY >= posPY and posAY <= posPY - sizePY:
-            if posAX + sizeAX >= posPX and posAX <= posPX - sizePX:
+        if posAY + sizeAY >= posPY and posAY <= posPY + sizePY:
+            if posAX + sizeAX >= posPX and posAX <= posPX + sizePX:
                 alienClass.kill(self,x,y)
                 variables.projectileAlive = False
 
@@ -80,7 +80,14 @@ class alienClass:
                 for y in range(3):
                     (posWX,posWY,sizeWX,sizeWY) = alienClass.RenderWalls(self,s,y,x)
                     if posWY + sizeWY >= posPY and posWY <= posPY - sizePY:
-                        if posWX + sizeWX >= posPX and posWX <= posPX - sizePX:
+                        if posWX + sizeWX >= posPX and posWX <= posPX + sizePX:
                             if variables.wallsState[s][x][y] > 0 and variables.projectileAlive:
                                 variables.wallsState[s][x][y] -= 1
                                 variables.projectileAlive = False
+                    for i in range(variables.APsAlowed):
+                        if variables.APs[i][1] > posWY - sizePY:
+                            if posWX + sizeWX >= variables.APs[i][0] and posWX <= variables.APs[i][0] + sizePX:
+                                if variables.wallsState[s][x][y] > 0 and variables.APisAlive[i]:
+                                    variables.wallsState[s][x][y] -= 1
+                                    variables.APisAlive[i] = False
+                                

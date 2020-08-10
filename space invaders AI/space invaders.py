@@ -2,6 +2,7 @@ import pygame as pg
 import sys
 import alien
 import variables as var
+import player
 import time
 
 
@@ -13,6 +14,7 @@ pg.key.set_repeat(var.speed,var.speed)
 textFont = pg.font.SysFont('Arial', 30)
 
 aliens = alien.alienClass()
+player = player.playerClass()
 aliens.flockLimit()
 textsurface = textFont.render(str(var.aliensDead), True, pg.Color("white"))
 
@@ -21,17 +23,13 @@ while True:
         if events.type == pg.QUIT:      
             quit()
             sys.exit()
-        elif events.type == pg.KEYDOWN:
-            if events.key == pg.K_LEFT:
-                if var.playerX > var.L:
-                    var.playerX -= 2
-            if events.key == pg.K_RIGHT:
-                if var.playerX + var.playerSizeX <= var.R:
-                    var.playerX += 2
-            if events.key == pg.K_UP:
-                if not(var.projectileAlive):
-                    (var.projectileX,var.projectileY) = (var.playerX+(var.playerSizeX//2)-(var.projectileSizeX//2),var.playerY)
-                    var.projectileAlive = True
+        # elif events.type == pg.KEYDOWN: #obsolete because of AI
+        #     if events.key == pg.K_LEFT:
+        #         player.left()
+        #     if events.key == pg.K_RIGHT:
+        #         player.right()
+        #     if events.key == pg.K_UP:
+        #         player.shoot()
     window.fill(pg.Color("black"))
     pg.draw.line(window,pg.Color("white"),var.UL,var.UR)
     pg.draw.line(window,pg.Color("white"),var.UL,var.LL)
@@ -89,11 +87,12 @@ while True:
         var.hadKill = False
         if var.aliensDead < 40:
             var.APsAlowed = (var.aliensDead // 10) + 1
-    
     aliens.shoot()
     aliens.wallCollision()
     window.blit(textsurface,(0,0))
 
+    player.AI()
+
     pg.display.update()
-    time.sleep(0.004)
+    #time.sleep(0.004)
 

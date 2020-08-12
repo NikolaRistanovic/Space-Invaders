@@ -25,6 +25,7 @@ playerColor = ["cyan","darkred"]
 
 #player state
 playerState = 0
+setup = True
 
 #movement speed
 speed = 10
@@ -83,3 +84,5 @@ APisAlive = [False] * 5
 
 #AI state of functioning
 AIstate = 0
+nextKill = [0,0]
+dist = [0,0]

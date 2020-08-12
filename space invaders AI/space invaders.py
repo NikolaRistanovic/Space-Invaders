@@ -18,6 +18,8 @@ player = player.playerClass()
 aliens.flockLimit()
 textsurface = textFont.render(str(var.aliensDead), True, pg.Color("white"))
 
+
+
 while True:
     for events in pg.event.get():
         if events.type == pg.QUIT:      
@@ -87,12 +89,22 @@ while True:
         var.hadKill = False
         if var.aliensDead < 40:
             var.APsAlowed = (var.aliensDead // 10) + 1
+
+    if var.setup:
+        position1 = aliens.RenderWalls(0,0,2)
+        position2 = aliens.RenderWalls(0,2,2)
+        distance = ((position2[0] + var.wallSize) - position1[0] - var.playerSizeX)//2
+        position = position1[0] + distance
+        player.goto(position)
+        if var.playerX == position:
+                var.setup = False
+
     aliens.shoot()
     aliens.wallCollision()
     window.blit(textsurface,(0,0))
 
     player.AI()
-
     pg.display.update()
+    #print(var.offsetY)
     #time.sleep(0.004)
 

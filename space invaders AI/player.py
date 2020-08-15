@@ -33,7 +33,7 @@ class playerClass:
             variables.AIstate = 1
 
 
-
+        variables.nextKill = variables.killOrder[variables.aliensDead]
         pos = alien.alienClass.Render(self,variables.offsetX,variables.offsetY,0,3)
         if (variables.AIstate == 1 and variables.nextKill[0]<2) or (variables.nextKill[0]>=2 and variables.nextKill[1]>=1):
             variables.dist[0] = ((variables.alienSizeX + variables.spaceing)*variables.nextKill[0])
@@ -70,10 +70,6 @@ class playerClass:
         
         if variables.AIstate == 4:
             playerClass.shoot(self)
-            variables.nextKill[1] += 1
-            if variables.nextKill[1] == 4:
-                variables.nextKill[1] = 0
-                variables.nextKill[0] += 1
             variables.AIstate = 5
         
         if variables.AIstate == 5:

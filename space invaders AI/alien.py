@@ -61,12 +61,15 @@ class alienClass:
             if posAX + sizeAX >= posPX and posAX <= posPX + sizePX:
                 alienClass.kill(self,x,y)
                 variables.projectileAlive = False
+                print('Killed',variables.aliensDead)
 
     def hitDetection(self,iAP):
         if variables.APs[iAP][1] > variables.D - variables.playerSizeY - variables.projectileSizeY:
             if variables.playerX + variables.playerSizeX >= variables.APs[iAP][0] and variables.playerX <= variables.APs[iAP][0] - variables.projectileSizeX:
                 variables.APisAlive[iAP] = False
                 variables.playerState = 1
+                print('Died')
+                exit(1)
 
     def RenderWalls(self,s,x,y):
         posX = (variables.width//7)*(s+1)-(variables.wallSize+variables.wallSize//2)+variables.wallSize*x
